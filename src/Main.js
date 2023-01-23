@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import HamBurger from "./images/hamburger.png";
-import Kitchen from "./images/kitchen.png"
+import top from "./images/top.jpg";
+
 
 const Main = () => {
   return (
@@ -8,6 +9,7 @@ const Main = () => {
       <div className="container">
         <div className="burger_image">
           <img src={HamBurger} alt="Hamburger" className="burger_size" />
+         
         </div>
 
         <div className="prices">
