@@ -1,30 +1,57 @@
 import styled from "styled-components";
-import Meat from "./images/meat.png";
-import Onions from "./images/onions.png";
-import HamBurger from "./images/hamburger.png";
+import Meat from "./images/meat.jpg";
+import Cheese from "./images/cheese.jpg";
+import Bun from "./images/bottom.jpg";
+import Tomato  from "./images/tomato.jpg";
+import top from "./images/top.jpg";
+import lettuce from "./images/lettuse.jpg";
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   const [amount, setAmount] = useState(40);
-  const [burger, setBurger] = useState([]);
-  const ingredients = {
-    Onion: Onions,
-    Meat: Meat,
+  const [burgerImages, setBurgerImages] = useState([]);
 
-  };
+  const items = [
+    {
+      name:'Meat',
+      amount:40,
+      img:Meat
+    },
+    {
+      name:'Tomato',
+      amount:10,
+      img:Tomato
+    },
+    
+    {
+      name:'Lettuce',
+      amount:20,
+      img:lettuce,
+    },
+    {
+      name:'Cheese',
+      amount:15,
+      img:Cheese,
+    },
 
-  const handleAddIngredient = (ingredient) => {
-    console.log(ingredient);
-    console.log(burger);
-    var arr=[ingredient];
-    setBurger(arr);
-    console.log(burger);
-  };
+   
+  ]
+
+  const addItems = (imgAddress) => {
+   
+    const newArr = burgerImages;
+    console.log(newArr);
+    newArr.push(imgAddress);
+    setBurgerImages(newArr);
+  }
+
 
   const addRemoveAmount = (action, value) => {
     if (action == "add") {
       setAmount(amount + value);
-    } else if (action == "remove") {
+    } 
+    else if (action == "remove") {
       setAmount(amount - value);
       if (amount - value < 0) {
         setAmount(0);
@@ -33,77 +60,65 @@ const Footer = () => {
   };
   return (
     <Wrapper>
-      <div className="container">
+      <div className="container">    
+        <div className="burger_ingredients">
+          <div >
+            <img src={top} alt="top" className="top_size" />
+          </div>
+
+          {burgerImages.map((ingredient, index) => (
+            <img key={index} src={ingredient} alt={ingredient}  className="item_size"/>
+          ))}
+           
+           <div > 
+            <img src={Bun} alt="Patty" className="bottom_size" />
+          </div>
+
+        </div>
         <div className="ingredients">
           <h3>Choose What Goes into your Burger</h3>
           <div className="addIngredients">
-            <button
-              onClick={() => {
-                addRemoveAmount("add", 20);
-                handleAddIngredient("Onions");
-              }}
-            >
-            
-              Cheese
-            </button>
-            <button
-              onClick={() => {
-                addRemoveAmount("add", 15);
-                handleAddIngredient("Meat");
-              }}
-            >
-            
-              Lettuce
-            </button>
-            <button
-              onClick={() => {
-                addRemoveAmount("add", 10);
-                handleAddIngredient("Onions");
-              }}
-            >
-            
-              Tomato
-            </button>
-            <button
-              onClick={() => {
-                addRemoveAmount("add", 25);
-                handleAddIngredient("Onions");
-              }}
-            >
-            
-              Onion
-            </button>
-            <button
-              onClick={() => {
-                addRemoveAmount("add", 20);
-                handleAddIngredient("Onions");
-              }}
-            >
-            
-              Patty
-            </button>
+            {items.map((item,index)=>{
+              return(
+                  <button
+                  onClick={() => {
+                    addRemoveAmount("add", item.amount);
+                    addItems(item.img);
+                  }}
+                  >
+                {item.name}
+                 </button>
+              )
+            })}
+
+        
           </div>
+        
 
           <div className="removeIngredients">
-            <button onClick={() => addRemoveAmount("remove", 20)}>
-            
-              Cheese
-            </button>
-            <button onClick={() => addRemoveAmount("remove", 15)}>
-            
-              Lettuce
+            <button onClick={() => addRemoveAmount("remove", 40)}>
+
+             Meat
             </button>
             <button onClick={() => addRemoveAmount("remove", 10)}>
-            
+
               Tomato
             </button>
-            <button onClick={() => addRemoveAmount("remove", 25)}>
-            
-              Onion
+            <button onClick={() => addRemoveAmount("remove", 20)}>
+
+              Patty
+            </button>
+            <button onClick={() => addRemoveAmount("remove", 15)}>
+
+              Lettuce
             </button>
             <button onClick={() => addRemoveAmount("remove", 20)}>
-            
-              Patty
+
+              Cheese
+            </button>
+            <button onClick={() => addRemoveAmount("remove", 20)}>
+
+              Top
             </button>
           </div>
         </div>
@@ -116,16 +131,14 @@ const Footer = () => {
             </div>
 
             <div className="button">
-              <button>Pay and Receive order</button>
+              <button><NavLink to="/burger">Pay and Receive order</NavLink></button>
             </div>
           </div>
         </div>
       </div>
 
       <div>
-        {burger.map((ingredient, index) => (
-          <img key={index} src={ingredients[ingredient]} alt={ingredient} />
-        ))}
+
       </div>
     </Wrapper>
   );
@@ -196,5 +209,36 @@ const Wrapper = styled.footer`
   .green {
     background-color: green;
   }
+  
+  .burger_ingredients{
+    position:absolute;
+    top:20rem;
+    left:20rem;
+    
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+
+  }
+
+  .top_size{
+    height:5rem;
+    width:15rem;
+  }
+  .bottom_size{
+    height:3rem;
+    width:15rem;
+  }
+
+  .item_size{
+    height:1rem;
+    width:15rem;
+
+  }
+
+
+
+
 `;
 export default Footer;
+

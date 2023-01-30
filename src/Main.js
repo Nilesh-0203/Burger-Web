@@ -7,10 +7,7 @@ const Main = () => {
   return (
     <Wrapper>
       <div className="container">
-        <div className="burger_image">
-          <img src={HamBurger} alt="Hamburger" className="burger_size" />
-         
-        </div>
+      
 
         <div className="prices">
           <div className="chart">
@@ -75,6 +72,7 @@ const Wrapper = styled.main`
     border-radius: 10px;
     position:absolute;
     top:3rem;
+    right:5rem;
     background-color:black;
 
     
