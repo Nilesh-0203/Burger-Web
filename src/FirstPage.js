@@ -1,4 +1,4 @@
-import Signup from "./Signup";
+
 import styled from "styled-components";
 import Grid from "./images/grid_0.webp";
 import Login from "./Login";
